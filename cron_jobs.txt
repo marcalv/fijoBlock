@@ -1,6 +1,6 @@
 # Example cron jobs. 
 # Execute block and unblock commands logging std & err to fb.log, wich is monthly deleted.
 
-30 17 * * * python3 /home/pi/fijoBlock/fijoBlock.py unblock >> /home/pi/fijoBlock/fb.log 2>&1 &
-50 23 * * * python3 /home/pi/fijoBlock/fijoBlock.py block >> /home/pi/fijoBlock/fb.log 2>&1 &
+30 17 * * * python3 -u /home/pi/fijoBlock/fijoBlock.py unblock >> /home/pi/fijoBlock/fb.log 2>&1 &
+50 23 * * * python3 -u /home/pi/fijoBlock/fijoBlock.py block >> /home/pi/fijoBlock/fb.log 2>&1 &
 00 3 1 * * rm /home/pi/fijoBlock/fb.log
