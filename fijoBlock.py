@@ -47,7 +47,7 @@ print( 'Loading driver...')
 if debug:
     from selenium.webdriver.firefox.options import Options
     options = Options()
-    options.headless = headless
+    #options.headless = headless
     driver = webdriver.Firefox(options=options)
     print( 'Driver loaded')
 else:
@@ -72,8 +72,20 @@ driver.find_element_by_xpath('//*[@id="activation-content-right"]/div[2]/div/inp
 driver.find_element_by_xpath('//*[@id="activation-content-right"]/div[3]/div[1]/input').send_keys(password)
 driver.find_element_by_xpath('/html/body/div/div/div[2]/div/div[2]/div[2]/div[3]/div[2]/input').click()
 
+#Wait for Mode Select appear
+modeSelect_xpath =  '/html/body/div/div/div[1]/div/div[1]/div/div/div/div[1]/div[2]/a'
+WebDriverWait(driver, elementTimeout).until(EC.presence_of_element_located((By.XPATH, modeSelect_xpath)))
+print("wait lang done")
+
+#Click on Mode Select
+driver.find_element_by_xpath(modeSelect_xpath).click()
+
+#Click on Expert mode
+expertMode_xpath = '/html/body/div/div/div[1]/div/div[1]/div/div/div/div[1]/div[2]/div/ul/li[2]'
+driver.find_element_by_xpath(expertMode_xpath).click()
+
 #Wait for Home page image load
-WebDriverWait(driver, elementTimeout).until(EC.presence_of_element_located((By.XPATH, '//*[@id="lang700032"]')))
+WebDriverWait(driver, elementTimeout).until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div/div[6]/div[3]/div/div[2]/div[1]/div[1]')))
 
 #Get to "No Molestar" section
 driver.get("http://192.168.1.1/phone.html#sub=16")
