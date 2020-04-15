@@ -45,10 +45,12 @@ blockOrder = sys.argv[1]
 #Load web driver
 print( 'Loading driver...')
 if debug:
-    from selenium.webdriver.firefox.options import Options
+    from selenium.webdriver.chrome.options import Options
     options = Options()
-    #options.headless = headless
-    driver = webdriver.Firefox(options=options)
+    options.add_argument("--window-size=1920,1080")
+    options.add_argument("--start-maximized")
+    options.add_argument('--headless')
+    driver = webdriver.Chrome(options=options)
     print( 'Driver loaded')
 else:
     from pyvirtualdisplay import Display
