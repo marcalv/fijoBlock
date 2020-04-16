@@ -5,30 +5,33 @@ This python script is running on a Raspberry Pi 3 on buster.
 
 ## Dependencies
 ```
-sudo apt install chromium-browser
-sudo apt install chromium-chromedriver
-sudo apt-get install xvfb
-sudo pip3 install PyVirtualDisplay
-sudo pip3 install xvfbwrapper 
+sudo apt install chromium-browser, chromium-chromedriver, xvfb, python3, python3-pip
+pip3 install pipenv 
 ```
 ## Installation
+Clone from repo, install dependencies with pipenv, create config.py and customize it.
 ```
 cd /home/pi
 git clone https://github.com/marcalv/fijoBlock
 cd fijoBlock
+pipenv install
 cp config_template.py config.py
 nano config.py
 ```
 ## Single run
 ```
-python3 -u /home/pi/fijoBlock/fijoBlock.py unblock
-python3 -u /home/pi/fijoBlock/fijoBlock.py block
+pipenv run python -u /home/pi/fijoBlock/fijoBlock.py unblock
+pipenv run python -u /home/pi/fijoBlock/fijoBlock.py block
 ```
-## Cron Job
+## Cron Jobs
 Example cron jobs:
 ```
 # Execute block and unblock commands logging std & err to fb.log, wich is monthly deleted.
-30 17 * * * python3 -u /home/pi/fijoBlock/fijoBlock.py unblock >> /home/pi/fijoBlock/fb.log 2>&1 &
-50 23 * * * python3 -u /home/pi/fijoBlock/fijoBlock.py block >> /home/pi/fijoBlock/fb.log 2>&1 &
+30 17 * * * PATH_TO_VIRUALENV/bin/python3 -u /home/pi/fijoBlock/fijoBlock.py unblock >> /home/pi/fijoBlock/fb.log 2>&1 &
+50 23 * * * PATH_TO_VIRUALENV/bin/python3 -u /home/pi/fijoBlock/fijoBlock.py block >> /home/pi/fijoBlock/fb.log 2>&1 &
 00 3 1 * * rm /home/pi/fijoBlock/fb.log
+```
+Replace `PATH_TO_VIRUALENV` with virtualenv path. You can find it with the following command:
+```
+pipenv --venv
 ```
