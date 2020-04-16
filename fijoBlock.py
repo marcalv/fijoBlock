@@ -47,9 +47,10 @@ print( 'Loading driver...')
 if debug:
     from selenium.webdriver.chrome.options import Options
     options = Options()
-    options.add_argument("--window-size=1920,1080")
-    options.add_argument("--start-maximized")
-    options.add_argument('--headless')
+    if headlessDebug:
+        options.add_argument("--window-size=1920,1080")
+        options.add_argument("--start-maximized")
+        options.add_argument('--headless')
     driver = webdriver.Chrome(options=options)
     print( 'Driver loaded')
 else:
